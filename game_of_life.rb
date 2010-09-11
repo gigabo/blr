@@ -90,22 +90,31 @@ class LifeView
 end
 
 class LifeController
-  def initialize
-    @model = LifeModel.new
+  def initialize(args={})
+    width  = args[:width]  || 80
+    height = args[:height] || 20
+    @steps = args[:steps]  || 1000
+    @model = LifeModel.new(width, height)
     @view = LifeView.new(@model)
   end
 
   def run
     begin
-      1000.times do
+      @steps.times do
         @view.display
         @model.step
         sleep 0.03
       end
     rescue LifeModel::LifeIsStable
       puts "Life has stabilized"
+    rescue Interrupt
+      puts "OK, we're done here"
     end
   end
 end
 
-LifeController.new.run
+LifeController.new(
+  :width  => nil,
+  :height => nil,
+  :steps  => nil
+).run
