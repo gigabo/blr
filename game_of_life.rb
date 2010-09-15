@@ -85,7 +85,7 @@ class LifeView
     puts "+#{'-' * @model.width}+"
   end
   def display_row (row)
-    puts "|#{row.collect{|cell| cell.alive ? 'X' : ' ' }}|"
+    puts "|#{row.collect{|cell| cell.alive ? 'X' : ' ' } * ''}|"
   end
 end
 
